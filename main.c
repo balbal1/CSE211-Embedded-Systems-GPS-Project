@@ -24,10 +24,17 @@
 
 #include "declarations.h"
 
+char currentGLL[50] = {"$GPGLL,3003.15627,N,03013.86245,E"};
+double destLat = 30.0642310;
+double destLong = 31.2798524;
+double sumOfDist = 0;
+bool firstTime=0;
+bool firstStep=0;
+
 int main(void) {
     while(1) {
-		extract();
-        if (!firstTime) {
+        getCoordinates(currentGLL);
+		if (!firstTime) {
             startLat = currentLat;
             startLong = currentLong;
             oldDist = distance(currentLat,destLat,currentLong,destLong);
@@ -40,7 +47,6 @@ int main(void) {
             firstStep = 1;
         }
         CalculateStepsTaken(currentLat, currentLong);
-
     }
 }
 void GettingCloserOrFarther(double destX, double destY, double currentX, double currentY){
