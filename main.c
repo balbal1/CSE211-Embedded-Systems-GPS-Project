@@ -34,7 +34,7 @@ bool firstStep=0;
 int main(void) {
     while(1) {
         getCoordinates(currentGLL);
-		if (!firstTime) {
+	if (!firstTime) {
             startLat = currentLat;
             startLong = currentLong;
             oldDist = distance(currentLat,destLat,currentLong,destLong);
