@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-// tm4c123ge6pm.h - TM4C123GE6PM Register Definitions
+// tm4c123gh6pm.h - TM4C123GH6PM Register Definitions
 //
 // Copyright (c) 2013-2020 Texas Instruments Incorporated.  All rights reserved.
 // Software License Agreement
@@ -37,8 +37,8 @@
 //
 //*****************************************************************************
 
-#ifndef __TM4C123GE6PM_H__
-#define __TM4C123GE6PM_H__
+#ifndef __TM4C123GH6PM_H__
+#define __TM4C123GH6PM_H__
 
 //*****************************************************************************
 //
@@ -2019,8 +2019,12 @@
 #define FLASH_USERREG3_R        (*((volatile uint32_t *)0x400FE1EC))
 #define FLASH_FMPRE0_R          (*((volatile uint32_t *)0x400FE200))
 #define FLASH_FMPRE1_R          (*((volatile uint32_t *)0x400FE204))
+#define FLASH_FMPRE2_R          (*((volatile uint32_t *)0x400FE208))
+#define FLASH_FMPRE3_R          (*((volatile uint32_t *)0x400FE20C))
 #define FLASH_FMPPE0_R          (*((volatile uint32_t *)0x400FE400))
 #define FLASH_FMPPE1_R          (*((volatile uint32_t *)0x400FE404))
+#define FLASH_FMPPE2_R          (*((volatile uint32_t *)0x400FE408))
+#define FLASH_FMPPE3_R          (*((volatile uint32_t *)0x400FE40C))
 
 //*****************************************************************************
 //
@@ -9097,7 +9101,7 @@
 // The following are defines for the bit fields in the FLASH_FMA register.
 //
 //*****************************************************************************
-#define FLASH_FMA_OFFSET_M      0x0001FFFF  // Address Offset
+#define FLASH_FMA_OFFSET_M      0x0003FFFF  // Address Offset
 #define FLASH_FMA_OFFSET_S      0
 
 //*****************************************************************************
@@ -9196,7 +9200,7 @@
 //
 //*****************************************************************************
 #define FLASH_FSIZE_SIZE_M      0x0000FFFF  // Flash Size
-#define FLASH_FSIZE_SIZE_128KB  0x0000003F  // 128 KB of Flash
+#define FLASH_FSIZE_SIZE_256KB  0x0000007F  // 256 KB of Flash
 
 //*****************************************************************************
 //
@@ -9316,8 +9320,8 @@
 #define SYSCTL_DID1_FAM_M       0x0F000000  // Family
 #define SYSCTL_DID1_FAM_TIVA    0x00000000  // Tiva family of microcontollers
 #define SYSCTL_DID1_PRTNO_M     0x00FF0000  // Part Number
-#define SYSCTL_DID1_PRTNO_TM4C123GE6PM                                        \
-                                0x00A00000  // TM4C123GE6PM
+#define SYSCTL_DID1_PRTNO_TM4C123GH6PM                                        \
+                                0x00A10000  // TM4C123GH6PM
 #define SYSCTL_DID1_PINCNT_M    0x0000E000  // Package Pin Count
 #define SYSCTL_DID1_PINCNT_100  0x00004000  // 100-pin LQFP package
 #define SYSCTL_DID1_PINCNT_64   0x00006000  // 64-pin LQFP package
@@ -12860,4 +12864,4 @@
 
 #endif
 
-#endif // __TM4C123GE6PM_H__
+#endif // __TM4C123GH6PM_H__
