@@ -12,11 +12,11 @@ double  destLat, destLong, startLat, startLong,
         oldDist, sumOfDist;
 bool firstTime, firstStep;
 
-void PORTA_Init(void);			   	// initializes
-void PORTB_Init(void);			   	// initializes
-void PORTD_Init(void);			   	// initializes
-void PORTE_Init(void);			   	// initializes
-void PORTF_Init(void);			   	// initializes
+void initPortA();
+void initPortB();
+void initPortD();
+void initPortE();
+void initPortF();
 
 void UART0_Init();
 int UART0_READ_AVA(void);			// this function to see if fifo is full or not
@@ -25,8 +25,8 @@ void write_UART0(char y);			//fn to write char by char
 char *Making_input_str(char *str);	// this function is making the input chars into string
 void print_string(char *c);			//fn to print string
 
-void systick_init();
-void delay_IN_s(int total);
+void initSystick();
+void delayInSeconds(int total);
 
 void getCoordinates (char * ptr);
 double toDouble(char * s, int length);
