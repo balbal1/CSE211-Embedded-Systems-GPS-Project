@@ -27,6 +27,7 @@ void print_string(char *c);			//fn to print string
 
 void initSystick();
 void delayInSeconds(int total);
+void delay(int total);
 
 void getCoordinates (char * ptr);
 double toDouble(char * s, int length);
