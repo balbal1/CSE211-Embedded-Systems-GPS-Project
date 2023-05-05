@@ -22,24 +22,11 @@
     should be <= 5%) between your calculated distance and the one shown
     by Google Maps. */
 
-#include <stdio.h>
-#include <stdbool.h>
-#include <math.h>
-
-double destLat = 30.0642310;
-double destLong = 31.2798524;
-double sumOfDist = 0;
-double currentLat, currentLong, oldLat, oldLong, oldDist, startLat, startLong;
-bool firstTime=0;
-bool firstStep=0;
-
-void GettingCloserOrFarther(double destX, double destY, double currentX, double currentY);
-void CalculateStepsTaken(double currentX, double currentY);
-double distance(double x1,double x2,double y1,double y2);
-
+#include "declarations.h"
 
 int main(void) {
     while(1) {
+		extract();
         if (!firstTime) {
             startLat = currentLat;
             startLong = currentLong;
