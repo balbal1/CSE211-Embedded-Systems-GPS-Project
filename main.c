@@ -42,6 +42,7 @@ int __main(void) {
 		delayInSeconds(0.95);
 		makeInputString(currentGLL);
         getCoordinates(currentGLL);
+        fixCoordinates(&currentLat, &currentLong);
         if (!firstTime) {
             startLat = currentLat;
             startLong = currentLong;

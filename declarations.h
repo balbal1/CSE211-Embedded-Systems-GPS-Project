@@ -40,4 +40,5 @@ void CalculateStepsTaken(double currentX, double currentY);
 double distance(double x1,double x2,double y1,double y2);
 void ledON(int color);
 void ledOFF();
+void fixCoordinates(double latitude, double longitude);
 
