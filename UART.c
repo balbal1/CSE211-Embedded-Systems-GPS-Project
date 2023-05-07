@@ -4,9 +4,9 @@ char currentGLL[50] = {'\0'};
 
 /*int main(){  
 	initPortA();
-	UART0_Init();
+	initUART0();
 	while(1) {
-		Making_input_str(currentGLL);
+		MakeInputString(currentGLL);
 		print_string(currentGLL);
 	}
 }*/
@@ -14,7 +14,7 @@ char currentGLL[50] = {'\0'};
 //intialization	FOR UART_0
 //U0_RX PIN A0 for reading data 
 //U0_TX PIN A1 for writing data
-void UART0_Init(){
+void initUART0(){
 	SYSCTL_RCGCUART_R |= 0x01;  // Active UART0
 	
 	//SYSCTL_RCGCGPIO_R |= 0X01; // ACTIVE port A
@@ -41,7 +41,7 @@ void write_UART0(char y){
 	UART0_DR_R = y;
 }
 
-void Making_input_str(char *str){
+void MakeInputString(char *str){
 	char input;
 	int i;
 	for (i = 0; i < 50; i++) {
@@ -55,8 +55,7 @@ void Making_input_str(char *str){
 } 
 
 void print_string(char *c){
-	while (*c)
-	{
+	while (*c) {
 		write_UART0(*c);
 		c++;
 	}

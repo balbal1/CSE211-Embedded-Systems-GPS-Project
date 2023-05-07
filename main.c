@@ -24,18 +24,23 @@ In this project you will develop the following system using TM4C123G LaunchPad:
         by Google Maps.
 */
 
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "EndlessLoop"
 #include "declarations.h"
 
-char currentGLL[50] = {"$GPGLL,3003.15627,N,03013.86245,E"};
 double destLat = 30.0642310;
 double destLong = 31.2798524;
 double sumOfDist = 0;
-bool firstTime=0;
+bool firstTime = 0;
 
-int main(void) {
+void SystemInit() {
+	initPortA();
+	initPortF();
+	initUART0();
+};
+
+int __main(void) {
     while(1) {
+		delayInSeconds(0.95);
+		makeInputString(currentGLL);
         getCoordinates(currentGLL);
         if (!firstTime) {
             startLat = currentLat;
@@ -93,4 +98,3 @@ void ledOFF(){
 void ledON(int color){
     GPIO_PORTF_DATA_R |= color;
 }
-#pragma clang diagnostic pop

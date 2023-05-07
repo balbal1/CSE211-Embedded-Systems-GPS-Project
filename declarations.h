@@ -14,7 +14,7 @@ char currentGLL[50];
 double  destLat, destLong, startLat, startLong,
         currentLat, currentLong, oldLat, oldLong,
         oldDist, sumOfDist;
-bool firstTime, firstStep;
+bool firstTime;
 
 void initPortA();
 void initPortB();
@@ -22,10 +22,10 @@ void initPortD();
 void initPortE();
 void initPortF();
 
-void UART0_Init();
+void initUART0();
 char read_UART0();					//fn to read the input from GPS
 void write_UART0(char y);			//fn to write char by char
-void Making_input_str(char *str);	// this function is making the input chars into string
+void MakeInputString(char *str);	// this function is making the input chars into string
 void print_string(char *c);			//fn to print string
 
 void initSystick();
