@@ -99,3 +99,14 @@ void ledOFF(){
 void ledON(int color){
     GPIO_PORTF_DATA_R |= color;
 }
+void fixCoordinates(double latitude, double longitude){
+    latitude /= 100;
+    longitude /= 100;
+    double intLat, intLong, fractLat, fractLong;
+    fractLat = modf(latitude, &intLat);
+    fractLong = modf(longitude, &intLong);
+    fractLat *= 10/6;
+    fractLong *= 10/6;
+    latitude = intLat + fractLat;
+    longitude = intLong + fractLong;
+}
