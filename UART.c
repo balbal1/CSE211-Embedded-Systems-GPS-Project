@@ -23,7 +23,7 @@ void initUART0(){
 	UART0_IBRD_R = 104; // Baud rate = 9600
 	UART0_FBRD_R = 11;
 	UART0_LCRH_R |= 0X070;//8 Bits , FIFOs , 1 stop bit , NO Parity bits
-	UART0_CTL_R |= 0X101;
+	UART0_CTL_R |= 0X201;
 	
 	//GPIO_PORTA_AFSEL_R |= 0X03;//Enable alternative fn in PA0-1
 	//GPIO_PORTA_DEN_R |= 0X03; 
