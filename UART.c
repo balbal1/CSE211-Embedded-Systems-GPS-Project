@@ -41,7 +41,7 @@ void write_UART0(char y){
 	UART0_DR_R = y;
 }
 
-void MakeInputString(char *str){
+void makeInputString(char *str){
 	char input;
 	int i;
 	for (i = 0; i < 50; i++) {

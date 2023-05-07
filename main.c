@@ -39,7 +39,7 @@ void SystemInit() {
 
 int __main(void) {
     while(1) {
-		delayInSeconds(0.95);
+		delayInSeconds(1);
 		makeInputString(currentGLL);
         getCoordinates(currentGLL);
         fixCoordinates(&currentLat, &currentLong);
@@ -76,11 +76,11 @@ void GettingCloserOrFarther(double destX, double destY, double currentX, double 
             delay(250);
         }
         else {
-            ledON(yellow)
+            ledON(yellow);
         }
     }
     else {
-        ledON(green)
+        ledON(green);
     }
     oldDist = currentDist;
 }

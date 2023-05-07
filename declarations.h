@@ -25,7 +25,7 @@ void initPortF();
 void initUART0();
 char read_UART0();					//fn to read the input from GPS
 void write_UART0(char y);			//fn to write char by char
-void MakeInputString(char *str);	// this function is making the input chars into string
+void makeInputString(char *str);	// this function is making the input chars into string
 void print_string(char *c);			//fn to print string
 
 void initSystick();
