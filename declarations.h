@@ -23,10 +23,9 @@ void initPortE();
 void initPortF();
 
 void UART0_Init();
-int UART0_READ_AVA(void);			// this function to see if fifo is full or not
-char read_UART0(void);				//fn to read the input from GPS
+char read_UART0();					//fn to read the input from GPS
 void write_UART0(char y);			//fn to write char by char
-char *Making_input_str(char *str);	// this function is making the input chars into string
+void Making_input_str(char *str);	// this function is making the input chars into string
 void print_string(char *c);			//fn to print string
 
 void initSystick();
