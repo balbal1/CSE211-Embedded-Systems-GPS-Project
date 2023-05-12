@@ -7,11 +7,9 @@
 #include <math.h>
 #include <stdlib.h>
 
-#define red  0x02 // 0000 00010
-#define green  0x08 // 0000 1000
-#define yellow  0x0A // 0000 1010
-
-void dtos(char * s, double n);
+#define red  0x02
+#define green  0x08
+#define yellow  0x0A
 
 void initPortA(void);
 void initPortB(void);
@@ -34,7 +32,6 @@ void delayInSeconds(int total);
 void delay(int total);
 
 void getCoordinates (char * ptr);
-double toDouble(char * s, int length);
 
 void GettingCloserOrFarther(double destX, double destY, double currentX, double currentY);
 void CalculateStepsTaken(double currentX, double currentY);
