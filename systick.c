@@ -1,6 +1,6 @@
 #include "declarations.h"
 
-void initSystick() {
+void initSystick(void) {
 	NVIC_ST_CTRL_R = 0X00;
 	NVIC_ST_RELOAD_R = NVIC_ST_RELOAD_M;
 	NVIC_ST_CURRENT_R = 0X00;

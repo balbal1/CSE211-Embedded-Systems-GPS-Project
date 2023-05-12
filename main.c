@@ -26,87 +26,109 @@ In this project you will develop the following system using TM4C123G LaunchPad:
 
 #include "declarations.h"
 
-double destLat = 30.0642310;
-double destLong = 31.2798524;
-double sumOfDist = 0;
+char currentGLL[50] ;
+char arr1[11] = {'\0'};
+char arr2[12] = {'\0'};
+double  destLat, destLong, startLat, startLong,
+        currentLat, currentLong, oldLat, oldLong,
+        oldDist, sumOfDist, currentDist;
 bool firstTime = 0;
 
-void SystemInit() {
+int __main(void) {
+		
+	destLat = 30.063779;
+	destLong = 31.277873;
+	sumOfDist = 0;
+	firstTime = 0;
+	
 	initPortA();
+	initPortB();
 	initPortF();
 	initUART0();
-};
-
-int __main(void) {
-    while(1) {
-		delayInSeconds(1);
+	initUART1();
+	
+	while(1) {
+	
 		makeInputString(currentGLL);
-        getCoordinates(currentGLL);
-        fixCoordinates(&currentLat, &currentLong);
-        if (!firstTime) {
-            startLat = currentLat;
-            startLong = currentLong;
-            oldDist = distance(currentLat,destLat,currentLong,destLong);
-            oldLat = currentLat;
-            oldLong = currentLong;
-            firstTime = 1;
-        }
+		getCoordinates(currentGLL);
+		
+		currentLat = fixCoordinate(currentLat);
+		currentLong = fixCoordinate(currentLong);
+		
+		if (!firstTime) {
+			startLat = currentLat;
+			startLong = currentLong;
+			oldDist = distance(currentLat,destLat,currentLong,destLong);
+			oldLat = currentLat;
+			oldLong = currentLong;
+			firstTime = 1;
+		}
+		
+		printString("current message: ");
+		printStringln(currentGLL);
+		
+		printString("currnet Latitude: ");
+		printDouble(currentLat);
+		printString("current Longitude: ");
+		printDouble(currentLong);
+		
         GettingCloserOrFarther(destLat, destLong, currentLat, currentLong);
-        CalculateStepsTaken(currentLat, currentLong);
+		CalculateStepsTaken(currentLat, currentLong);
+		
+		printStringln("");
     }
 }
 void GettingCloserOrFarther(double destX, double destY, double currentX, double currentY){
-    double currentDist = distance(currentX,destX,currentY,destY);
-    if (currentDist > 5 ){
-        if (currentDist < oldDist){
-            ledON(red);
-            delay(250);
-            ledOFF();
-            delay(250);
-        }
-        else {
-            ledON(red);
-        }
-    }
-    else if (currentDist < 5 && currentDist > 2.5){
-        if (currentDist < oldDist  ){
-            ledON(yellow);
-            delay(250);
-            ledOFF();
-            delay(250);
-        }
-        else {
-            ledON(yellow);
-        }
-    }
-    else {
+	double currentDist = distance(currentX,destX,currentY,destY);
+	
+	printString("distance to destination: ");
+	printDouble(currentDist);
+	printString("led color: ");
+	
+	ledOFF();
+	if (currentDist > 5 ){
+		printStringln("red");
+        ledON(red);
+    } else if (currentDist < 5 && currentDist > 2.5){
+		printStringln("yellow");
+        ledON(yellow);
+    } else {
+		printStringln("green");
         ledON(green);
     }
-    oldDist = currentDist;
+    
+	oldDist = currentDist;
 }
 void CalculateStepsTaken(double currentX, double currentY){
     double distFromLastStep = distance(oldLat,currentX,oldLong,currentY);
-    sumOfDist += distFromLastStep;
-    oldLat = currentX;
+    
+	if (distFromLastStep > 0.5) {
+		sumOfDist += distFromLastStep;
+    }
+	
+	printString("Total distance: ");
+	printDouble(sumOfDist);
+	
+	oldLat = currentX;
     oldLong = currentY;
 }
+
 double distance(double x1,double x2,double y1,double y2){
-    return (sqrt(pow((x2- x1),2) + pow((y2 - y1) , 2)) * 100000) ;
+    return (sqrt(pow((x2 - x1),2) + pow((y2 - y1) , 2)) *100000) ;
 }
-void ledOFF(){
+
+
+void ledOFF(void){
     GPIO_PORTF_DATA_R &= ~0x0E;
 }
 void ledON(int color){
     GPIO_PORTF_DATA_R |= color;
 }
-void fixCoordinates(double latitude, double longitude){
-    latitude /= 100;
-    longitude /= 100;
-    double intLat, intLong, fractLat, fractLong;
-    fractLat = modf(latitude, &intLat);
-    fractLong = modf(longitude, &intLong);
-    fractLat *= 10/6;
-    fractLong *= 10/6;
-    latitude = intLat + fractLat;
-    longitude = intLong + fractLong;
+
+double fixCoordinate (double coordinate) {
+	double intCoord, fractCoord;
+    coordinate /= 100;
+    fractCoord = modf(coordinate, &intCoord);
+    fractCoord *= (double)10/6;
+    return intCoord + fractCoord;
 }

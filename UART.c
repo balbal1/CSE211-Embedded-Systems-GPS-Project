@@ -1,46 +1,61 @@
 #include "declarations.h"
 
-char currentGLL[50] = {'\0'};
+extern char currentGLL[50];
+extern char arr1[11];
+extern char arr2[12];
 
-/*int main(){  
-	initPortA();
-	initUART0();
-	while(1) {
-		MakeInputString(currentGLL);
-		print_string(currentGLL);
-	}
-}*/
-
-//intialization	FOR UART_0
-//U0_RX PIN A0 for reading data 
-//U0_TX PIN A1 for writing data
-void initUART0(){
-	SYSCTL_RCGCUART_R |= 0x01;  // Active UART0
+void initUART0 (void) {
+	SYSCTL_RCGCUART_R |= 0x0001;
 	
-	//SYSCTL_RCGCGPIO_R |= 0X01; // ACTIVE port A
+	GPIO_PORTA_PCTL_R = (GPIO_PORTA_PCTL_R&0xFFFFFF00)|0x00000011;
+	UART0_CTL_R &= ~0x0001;
 	
-	UART0_CTL_R &= ~(0X01);    
-	UART0_IBRD_R = 104; // Baud rate = 9600
+	UART0_IBRD_R = 104;
 	UART0_FBRD_R = 11;
-	UART0_LCRH_R |= 0X070;//8 Bits , FIFOs , 1 stop bit , NO Parity bits
-	UART0_CTL_R |= 0X201;
-	
-	//GPIO_PORTA_AFSEL_R |= 0X03;//Enable alternative fn in PA0-1
-	//GPIO_PORTA_DEN_R |= 0X03; 
-	//GPIO_PORTA_PCTL_R = (GPIO_PORTA_PCTL_R & 0XFFFFFF00) + 0X011; //Making p0-1 UART
-	//GPIO_PORTA_AMSEL_R &= ~(0X03);
+	UART0_LCRH_R = 0x0070;
+	UART0_CTL_R = 0x0301;
 }
 
-char read_UART0(void){ 
-	while ((UART0_FR_R & 0x10) != 0);
-	return (char)(UART0_DR_R & 0XFF);
+void initUART1(void){
+	SYSCTL_RCGCUART_R |= 0x02;  // Active UART1
+	while ((SYSCTL_PRUART_R & 0x02)==0) {}
+
+	UART1_CTL_R &= ~(0X01);    
+	UART1_IBRD_R = 104; // Baud rate = 9600
+	UART1_FBRD_R = 11;
+	UART1_LCRH_R |= 0X070;//8 Bits , FIFOs , 1 stop bit , NO Parity bits
+	UART1_CTL_R |= 0X201;
 }
+
 
 void write_UART0(char y){
 	while ((UART0_FR_R & 0X20) != 0);
 	UART0_DR_R = y;
 }
+void printStringln(char *c){
+	while (*c) {
+		write_UART0(*c);
+		c++;
+	}
+	write_UART0('\r');
+	write_UART0('\n');
+}
+void printString(char *c){
+	while (*c) {
+		write_UART0(*c);
+		c++;
+	}
+}
+void printDouble(double n){
+	char string[11];
+	sprintf(string, "%f", n);
+	printStringln(string);
+}
 
+char read_UART1(void){ 
+	while ((UART1_FR_R & 0x10) != 0);
+	return (char)(UART1_DR_R & 0XFF);
+}
 void makeInputString(char *str){
 	char input;
 	int i;
@@ -48,16 +63,14 @@ void makeInputString(char *str){
 		str[i] = '\0'; //turning the string into null to use it again
 	}
 	for (i = 0; i < 50; i++) { 
-		input = read_UART0();
+		input = read_UART1();
+		
 		str[i] = input;
-		if ( input == '*') break;
+		if ( input == '\n') break;
 	}
-} 
-
-void print_string(char *c){
-	while (*c) {
-		write_UART0(*c);
-		c++;
+	for (i = 0; i < 50; i++) { 
+		input = read_UART1();
+		if ( input == '\n') break;
 	}
-	write_UART0('\n');
+	str[49] = '\0';
 }

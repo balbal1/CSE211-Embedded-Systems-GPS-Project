@@ -1,29 +1,30 @@
 #include "declarations.h"
 
-void initPortA () {
+void initPortA (void) {
 	SYSCTL_RCGCGPIO_R |= 0x01;
 	while ((SYSCTL_PRGPIO_R & 0x01)==0) {}
 	
 	GPIO_PORTA_LOCK_R = 0x4C4F434B;
 	GPIO_PORTA_CR_R = 0xFF;
 	GPIO_PORTA_AFSEL_R |= 0x03;
-	GPIO_PORTA_PCTL_R = (GPIO_PORTA_PCTL_R & 0XFFFFFF00) + 0X011;
+	GPIO_PORTA_PCTL_R |= 0X11;
 	GPIO_PORTA_AMSEL_R &= ~(0X03);
 	GPIO_PORTA_DEN_R |= 0x03;
 }
 
-void initPortB () {
+void initPortB (void) {
 	SYSCTL_RCGCGPIO_R |= 0x02;
 	while ((SYSCTL_PRGPIO_R & 0x02)==0) {}
 	
 	GPIO_PORTB_LOCK_R = 0x4C4F434B;
 	GPIO_PORTB_CR_R = 0xFF;
-	GPIO_PORTB_AFSEL_R = 0x00;
-	GPIO_PORTB_PCTL_R = 0x00;
+	GPIO_PORTB_AFSEL_R |= 0x03;
+	GPIO_PORTB_PCTL_R |= 0x11;
 	GPIO_PORTB_AMSEL_R = 0x00;
+	GPIO_PORTB_DEN_R |= 0x03;
 }
 
-void initPortD () {
+void initPortD (void) {
 	SYSCTL_RCGCGPIO_R |= 0x08;
 	while ((SYSCTL_PRGPIO_R & 0x08)==0) {}
 	
@@ -34,7 +35,7 @@ void initPortD () {
 	GPIO_PORTD_AMSEL_R = 0x00;
 }
 
-void initPortE () {
+void initPortE (void) {
 	SYSCTL_RCGCGPIO_R |= 0x10;
 	while ((SYSCTL_PRGPIO_R & 0x10)==0) {}
 	
@@ -45,7 +46,7 @@ void initPortE () {
 	GPIO_PORTE_AMSEL_R = 0x00;
 }
 
-void initPortF () {
+void initPortF (void) {
 	SYSCTL_RCGCGPIO_R |= 0x20;
 	while ((SYSCTL_PRGPIO_R & 0x20)==0) {}
 	
@@ -57,6 +58,8 @@ void initPortF () {
 	GPIO_PORTF_DIR_R |= 0x0E;
 	GPIO_PORTF_DEN_R |= 0x1F;
 	GPIO_PORTF_PUR_R |= 0x11;
+	GPIO_PORTF_DATA_R = 0x00;
+		
 }
 
 

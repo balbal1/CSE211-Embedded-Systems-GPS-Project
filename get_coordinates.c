@@ -1,39 +1,30 @@
 #include "declarations.h"
 
+extern double currentLat;
+extern double currentLong;
+extern char arr1[11];
+extern char arr2[12];
+
 void getCoordinates (char * ptr) {
-    char arr1[10] = {'\0'};
-    char arr2[11] = {'\0'};
-    ptr += 7;
     int i = 0;
     int flag = 0;
-    while(flag < 2) {
-        if ( * ptr != ',') {
-            if (flag == 0) {
-                arr1[i]= * ptr;
-                ptr++;
-                i++;
-            } else if (flag == 1) {
-                arr2[i]= * ptr ;
-                ptr ++ ;
-                i++;
-            }
-        } else {
-            ptr +=3;
-            flag++;
-            i = 0;
-        }
+		ptr += 7;
+    for (flag = 0; flag < 22; flag++) {
+			if (flag < 10) {
+				arr1[i]= * ptr;
+      } else if (flag == 10) {
+				ptr +=2;
+        i = -1;
+			} else {
+				arr2[i]= * ptr ;
+      }
+			ptr ++;
+      i++;
     }
-    currentLat = toDouble(arr1,10);
-    currentLong = toDouble(arr2,11);
-}
-
-double toDouble(char * s, int length) {
-    unsigned long long int m = 1;
-    int ret = 0;
-    for (int i = length-1; i >= 0; i--) {
-        if (s[i] == '.') continue;
-        ret += (s[i] - '0') * m;
-        m *= 10;
-    }
-    return (double)ret/100000;
+		arr1[10] = '\0';
+		arr2[11] = '\0';
+		
+		currentLat = atof(arr1);
+    currentLong = atof(arr2);
+		
 }
