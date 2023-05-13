@@ -1,4 +1,4 @@
-#GPS Tracking System Project
+# GPS Tracking System Project
 
 1. The GPS system stores the coordinates of the start point.
 2. After reaching the destination point, the GPS system stores the coordinates
