@@ -17,8 +17,8 @@ void initPortF(void);
 
 void initUART0(void);
 void write_UART0(char y);
-void printString(char *c);
-void printStringln(char *c);
+void printString(char *str);
+void printStringln(char *str);
 void printDouble(double n);
 
 void initUART1(void);
