@@ -10,7 +10,9 @@
       destination is about to be reached < 5 meters.
    3. Stage 3: The built-in LED will be turned on(red) when the target
       destination is far away by distance > 5 meters.
-
+      
+# Video of The Project
+https://drive.google.com/file/d/1qOvVeDA646bRYG1yRKwBfUAXW7IUD6Wt/view?usp=share_link
 # Flow of Program
 
 * We get the info about our position from the GPS satalites through an antenna.
