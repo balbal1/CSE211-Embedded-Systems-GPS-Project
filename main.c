@@ -29,9 +29,10 @@ In this project you will develop the following system using TM4C123G LaunchPad:
 char currentGLL[50] ;
 char arr1[11] = {'\0'};
 char arr2[12] = {'\0'};
+char color[7] = {'\0'};
 double  destLat, destLong, startLat, startLong,
         currentLat, currentLong, oldLat, oldLong,
-        oldDist, sumOfDist, currentDist;
+        sumOfDist, currentDist, distFromLastStep;
 bool firstTime = 0;
 
 int __main(void) {
@@ -58,77 +59,17 @@ int __main(void) {
 		if (!firstTime) {
 			startLat = currentLat;
 			startLong = currentLong;
-			oldDist = distance(currentLat,destLat,currentLong,destLong);
 			oldLat = currentLat;
 			oldLong = currentLong;
 			firstTime = 1;
 		}
 		
-		printString("current message: ");
-		printStringln(currentGLL);
+		chooseLedColor(double destLat, double destLong, double currentLat, double currentLong);
+		calculateStepsTaken(double oldLat, double oldLong, double currentLat, double currentLong);
 		
-		printString("currnet Latitude: ");
-		printDouble(currentLat);
-		printString("current Longitude: ");
-		printDouble(currentLong);
+		oldLat = currentLat;
+		oldLong = currentLong;
 		
-        GettingCloserOrFarther(destLat, destLong, currentLat, currentLong);
-		CalculateStepsTaken(currentLat, currentLong);
-		
-		printStringln("");
+		serialPrint();
     }
-}
-void GettingCloserOrFarther(double destX, double destY, double currentX, double currentY){
-	double currentDist = distance(currentX,destX,currentY,destY);
-	
-	printString("distance to destination: ");
-	printDouble(currentDist);
-	printString("led color: ");
-	
-	ledOFF();
-	if (currentDist > 5 ){
-		printStringln("red");
-        ledON(red);
-    } else if (currentDist < 5 && currentDist > 2.5){
-		printStringln("yellow");
-        ledON(yellow);
-    } else {
-		printStringln("green");
-        ledON(green);
-    }
-    
-	oldDist = currentDist;
-}
-void CalculateStepsTaken(double currentX, double currentY){
-    double distFromLastStep = distance(oldLat,currentX,oldLong,currentY);
-    
-	if (distFromLastStep > 0.5) {
-		sumOfDist += distFromLastStep;
-    }
-	
-	printString("Total distance: ");
-	printDouble(sumOfDist);
-	
-	oldLat = currentX;
-    oldLong = currentY;
-}
-
-double distance(double x1,double x2,double y1,double y2){
-    return (sqrt(pow((x2 - x1),2) + pow((y2 - y1) , 2)) *100000) ;
-}
-
-
-void ledOFF(void){
-    GPIO_PORTF_DATA_R &= ~0x0E;
-}
-void ledON(int color){
-    GPIO_PORTF_DATA_R |= color;
-}
-
-double fixCoordinate (double coordinate) {
-	double intCoord, fractCoord;
-    coordinate /= 100;
-    fractCoord = modf(coordinate, &intCoord);
-    fractCoord *= (double)10/6;
-    return intCoord + fractCoord;
 }

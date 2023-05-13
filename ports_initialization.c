@@ -24,28 +24,6 @@ void initPortB (void) {
 	GPIO_PORTB_DEN_R |= 0x03;
 }
 
-void initPortD (void) {
-	SYSCTL_RCGCGPIO_R |= 0x08;
-	while ((SYSCTL_PRGPIO_R & 0x08)==0) {}
-	
-	GPIO_PORTD_LOCK_R = 0x4C4F434B;
-	GPIO_PORTD_CR_R = 0xFF;
-	GPIO_PORTD_AFSEL_R = 0x00;
-	GPIO_PORTD_PCTL_R = 0x00;
-	GPIO_PORTD_AMSEL_R = 0x00;
-}
-
-void initPortE (void) {
-	SYSCTL_RCGCGPIO_R |= 0x10;
-	while ((SYSCTL_PRGPIO_R & 0x10)==0) {}
-	
-	GPIO_PORTE_LOCK_R = 0x4C4F434B;
-	GPIO_PORTE_CR_R = 0x3F;
-	GPIO_PORTE_AFSEL_R = 0x00;
-	GPIO_PORTE_PCTL_R = 0x00;
-	GPIO_PORTE_AMSEL_R = 0x00;
-}
-
 void initPortF (void) {
 	SYSCTL_RCGCGPIO_R |= 0x20;
 	while ((SYSCTL_PRGPIO_R & 0x20)==0) {}

@@ -28,3 +28,11 @@ void getCoordinates (char * ptr) {
     currentLong = atof(arr2);
 		
 }
+
+double fixCoordinate (double coordinate) {
+	double intCoord, fractCoord;
+    coordinate /= 100;
+    fractCoord = modf(coordinate, &intCoord);
+    fractCoord *= (double)10/6;
+    return intCoord + fractCoord;
+}
