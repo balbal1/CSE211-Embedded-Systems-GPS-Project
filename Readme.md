@@ -34,8 +34,8 @@ We made three initialization functions of the ports A, B and F:
 
 Two initialization functions of UART0 and UART1: 
 
-* initUART0();
-* initUART1();
+* initUART0
+* initUART1
 
 A function to write a single character on UART0
 
@@ -57,22 +57,22 @@ A function that creates the string taken from UART1 (GPS) using read_UART1
 
 Two functions to get the coordinates from the NMEA sentence and convert it to degrees
 
-* getCoordinates (char * ptr);
-* fixCoordinate (double coordinate);
+* getCoordinates
+* fixCoordinate
 
 Functions used in main to make it more readable
 
-* chooseLedColor(double destX, double destY, double currentX, double currentY);
-* calculateStepsTaken(double currentX, double currentY);
-* distance(double x1,double x2,double y1,double y2);
+* chooseLedColor
+* calculateStepsTaken
+* distance
 
 Two functions to turn on/off the leds
 
-* ledON(int color);
-* ledOFF(void);
+* ledON
+* ledOFF
 
 Systick timer functions
 
-* initSystick(void);
-* delayInSeconds(int total);
-* delay(int total);
+* initSystick
+* delayInSeconds
+* delay
